@@ -13,6 +13,6 @@ V B N M: Controles de los receptores de las 4 columnas de juego.
 # Changelog
 **V1.1**  
 - Añadido menú de selección de canción totalmente funcional.
-- Añadida compatibilidad con mapas de osu!mania.
-- Al clickear "Play" la musica no iniciará hasta que el jugador presione "Enter" (Así puede editar su velocidad de desplazamiento a gusto).
+- Añadida la compatibilidad con mapas de osu!mania.
+- Al clickear "Play" la música no iniciará hasta que el jugador presione "Enter" (Así puede editar su velocidad de desplazamiento a gusto).
 - ~~Se han añadido bugs para arreglar en la próxima versión~~
