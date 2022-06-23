@@ -72,7 +72,7 @@ public class BeatScroller : MonoBehaviour
     {
         if (!hasStarted)
         {
-            if (Input.anyKey)
+            if (Input.GetKeyDown(KeyCode.Return))
             {
                 hasStarted = true;
                 TiempoInicioCancion = (float)AudioSettings.dspTime;

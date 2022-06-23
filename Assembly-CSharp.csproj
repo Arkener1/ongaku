@@ -64,6 +64,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ClassicSRIA\Scripts\CAbstractViewsHolder.cs" />
+    <Compile Include="Assets\ClassicSRIA\Scripts\ClassicSRIA.cs" />
+    <Compile Include="Assets\ClassicSRIA\Scripts\Examples\ClassicGridViewExample.cs" />
+    <Compile Include="Assets\ClassicSRIA\Scripts\Examples\Common\CUtil.cs" />
+    <Compile Include="Assets\ClassicSRIA\Scripts\Examples\Common\DemoUI.cs" />
+    <Compile Include="Assets\ClassicSRIA\Scripts\Examples\Common\SimpleClientModels.cs" />
+    <Compile Include="Assets\ClassicSRIA\Scripts\Examples\Common\SimpleClientViewsHolders.cs" />
+    <Compile Include="Assets\ClassicSRIA\Scripts\Examples\HorizontalClassicListViewExample.cs" />
+    <Compile Include="Assets\ClassicSRIA\Scripts\Examples\VerticalClassicListViewExample.cs" />
+    <Compile Include="Assets\ClassicSRIA\Scripts\Util\CExpandCollapseOnClick.cs" />
+    <Compile Include="Assets\ClassicSRIA\Scripts\Util\CLoadSceneOnClick.cs" />
+    <Compile Include="Assets\LoadMaps.cs" />
     <Compile Include="Assets\Scripts\BeatScroller.cs" />
     <Compile Include="Assets\Scripts\ButtonController.cs" />
     <Compile Include="Assets\Scripts\EffectObject.cs" />
@@ -111,6 +123,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
+    <Compile Include="Assets\buttonOnClick.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />

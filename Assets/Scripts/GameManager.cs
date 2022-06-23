@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
     {
         if (!startPlaying)
         {
-            if (Input.anyKeyDown)
+            if (Input.GetKeyDown(KeyCode.Return))
             {
                 scoreText.text = "0";
                 startPlaying = true;

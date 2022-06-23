@@ -6,15 +6,14 @@ using UnityEngine.EventSystems;
 
 public class buttonScript : MonoBehaviour
 {
-    public void playSong()
+    public LoadMaps cargarMapa;
+    public void playSong(int id, int idDiff)
     {
+        PlayerPrefs.SetString("Folder", cargarMapa.mapList[id]);
+        PlayerPrefs.SetString("MapaCargado", cargarMapa.dataMap[id,idDiff]);
         SceneManager.LoadScene(3);
     }
 
-    public void playSong2()
-    {
-        SceneManager.LoadScene(4);
-    }
     public void backButton()
     {
         SceneManager.LoadScene(0);

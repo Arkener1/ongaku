@@ -30,12 +30,13 @@ public class TextToMap : MonoBehaviour
     int NoteLines;
     private void Awake()
     {
-        mapa = File.ReadAllLines(Application.dataPath + @"\Silentroom - Protoflicker ([Crz]Crysarlene) [crysather].osu");
+        mapa = File.ReadAllLines(PlayerPrefs.GetString("MapaCargado"));
         for (int i = 0; i < mapa.Length; i++)
         {
             if (mapa[i].Contains("AudioFilename: "))
             {
                 Audio = mapa[3].Remove(0, 15);
+                Debug.Log(mapa[3]);
             }
             else if (mapa[i].Contains("[TimingPoints]"))
             {
@@ -83,7 +84,7 @@ public class TextToMap : MonoBehaviour
                     break;
             }
         }
-        MusicMap = Directory.GetFiles(Application.dataPath);
+        MusicMap = Directory.GetFiles(PlayerPrefs.GetString("Folder"));
         
         for (int i = 0; i < MusicMap.Length; i++)
         {
@@ -95,7 +96,7 @@ public class TextToMap : MonoBehaviour
             }
         }
 
-        
+        PlayerPrefs.DeleteAll();
         //Debug.Log(MusicMap);
     }
 }
