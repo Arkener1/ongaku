@@ -15,4 +15,4 @@ V B N M: Controles de los receptores de las 4 columnas de juego.
 - Añadido menú de selección de canción totalmente funcional.
 - Añadida compatibilidad con mapas de osu!mania.
 - Al clickear "Play" la musica no iniciará hasta que el jugador presione "Enter" (Así puede editar su velocidad de desplazamiento a gusto).
-- Al momento de iniciar una cancion, ahora puedes modificar libremente tu velocidad de desplazamiento sin que inicie el mapa  
+- ~~Se han añadido bugs para arreglar en la próxima versión~~
