@@ -19,6 +19,8 @@ V B N M: Controles de los receptores de las 4 columnas de juego por defecto (en 
 - Ajuste de fuente de la lista de canciones para mejorar la lectura y estética.
 - Ajuste a la dificultad de juicio de las notas.
 - Ajuste de tamaño de receptores.
+- Ajuste de ubicación del score hacia la esquina superior derecha para evitar la distracción durante el juego.
+- Ajuste del nombre de las dificultades para reflejar qué tan difícil es cada una de ellas.
 - ~~Se han añadido más bugs para arreglar en la próxima versión~~
 
 **V1.1**  
