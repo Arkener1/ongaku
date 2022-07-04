@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using System.IO;
 using System.Globalization;
 using System;
@@ -11,6 +12,8 @@ public class TextToMap : MonoBehaviour
     string[] mapa;
     string Audio;
     float BPM;
+
+    UnityWebRequest readAudio;
 
     [HideInInspector] public string[] MusicMap;
     [HideInInspector] public AudioClip readClip;
@@ -36,7 +39,7 @@ public class TextToMap : MonoBehaviour
             if (mapa[i].Contains("AudioFilename: "))
             {
                 Audio = mapa[3].Remove(0, 15);
-                Debug.Log(mapa[3]);
+                //Debug.Log(mapa[3]);
             }
             else if (mapa[i].Contains("[TimingPoints]"))
             {
@@ -85,18 +88,40 @@ public class TextToMap : MonoBehaviour
             }
         }
         MusicMap = Directory.GetFiles(PlayerPrefs.GetString("Folder"));
-        
+
         for (int i = 0; i < MusicMap.Length; i++)
         {
-            WWW www = new WWW(MusicMap[i]);
-            if (MusicMap[i].Contains(Audio))
+            WWW www;
+            if (MusicMap[i].Contains(Audio) && !MusicMap[i].Contains(".meta") && !MusicMap[i].Contains(".jpg") && !MusicMap[i].Contains(".png"))
             {
+                Debug.Log(MusicMap[i]);
+                readAudio = UnityWebRequestMultimedia.GetAudioClip(MusicMap[i], AudioType.MPEG);
+                StartCoroutine(audioCLIP(readAudio));
+            }
+
+            /*if (MusicMap[i].Contains(Audio) && !MusicMap[i].Contains(".meta") && !MusicMap[i].Contains(".jpg") && !MusicMap[i].Contains(".png"))
+            {
+                www = new WWW(MusicMap[i]);
+                //Debug.Log(www.bytes);
                 readClip = NAudioPlayer.FromMp3Data(www.bytes);
+                OrigenMusica.clip = readClip;
+            }*/
+        }
+
+        IEnumerator audioCLIP(UnityWebRequest readAudio)
+        {
+            yield return readAudio.SendWebRequest();
+            if (readAudio.isNetworkError)
+            {
+                Debug.Log(readAudio.error);
+            }
+            else
+            {
+                readClip = NAudioPlayer.FromMp3Data(readAudio.downloadHandler.data);
                 OrigenMusica.clip = readClip;
             }
         }
 
-        PlayerPrefs.DeleteAll();
-        //Debug.Log(MusicMap);
+        //PlayerPrefs.DeleteAll();
     }
 }

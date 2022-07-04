@@ -64,6 +64,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ChangeKeys.cs" />
     <Compile Include="Assets\ClassicSRIA\Scripts\CAbstractViewsHolder.cs" />
     <Compile Include="Assets\ClassicSRIA\Scripts\ClassicSRIA.cs" />
     <Compile Include="Assets\ClassicSRIA\Scripts\Examples\ClassicGridViewExample.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Assets\ClassicSRIA\Scripts\Util\CExpandCollapseOnClick.cs" />
     <Compile Include="Assets\ClassicSRIA\Scripts\Util\CLoadSceneOnClick.cs" />
     <Compile Include="Assets\LoadMaps.cs" />
+    <Compile Include="Assets\LoadSkins.cs" />
     <Compile Include="Assets\Scripts\BeatScroller.cs" />
     <Compile Include="Assets\Scripts\ButtonController.cs" />
     <Compile Include="Assets\Scripts\EffectObject.cs" />
@@ -89,6 +91,8 @@
     <Compile Include="Assets\Scripts\VideoPlay.cs" />
     <Compile Include="Assets\Scripts\buttonScript.cs" />
     <Compile Include="Assets\Scroll.cs" />
+    <Compile Include="Assets\SkinOnClick.cs" />
+    <Compile Include="Assets\SkinScript.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
@@ -124,6 +128,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\buttonOnClick.cs" />
+    <Compile Include="Assets\changeButton.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />

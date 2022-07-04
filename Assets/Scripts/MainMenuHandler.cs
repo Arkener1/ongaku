@@ -10,6 +10,11 @@ public class MainMenuHandler : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    public void skin()
+    {
+        SceneManager.LoadScene(4);
+    }
+
     public void instructions()
     {
         SceneManager.LoadScene(2);

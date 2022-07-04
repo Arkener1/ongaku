@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Rhythm Game Tutorial/Scenes/Mechanical Clown.unity
     guid: 0529fc88f8dbd0f43ba120347c536c58
+  - enabled: 1
+    path: Assets/Rhythm Game Tutorial/Scenes/Skin.unity
+    guid: 112342f36a0c80e4ba78bfaaf661ea71
   - enabled: 0
     path: Assets/Rhythm Game Tutorial/Scenes/Katanagatari.unity
     guid: 28844bdefd99b85458889d263792e308

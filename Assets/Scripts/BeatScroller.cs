@@ -56,7 +56,7 @@ public class BeatScroller : MonoBehaviour
 
         for (int i = 0; i < TiempoTotalCancion; i++)
         {
-            obj1 = Instantiate(snap, new Vector3(0, (i * segundosPorBeat) + Offset, 0), transform.rotation);
+            obj1 = Instantiate(snap, new Vector3(0, (i * segundosPorBeat*2) + Offset, 0), transform.rotation);
             SnapList.Add(obj1);
             obj1.transform.parent = gameObject.transform;
         }
