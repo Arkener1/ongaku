@@ -15,7 +15,7 @@ V B N M: Controles de los receptores de las 4 columnas de juego por defecto (en 
 - Añadida la opción de salir directamente de la canción con la tecla Esc.
 - Añadido menú de Keybinds (para cambiar las teclas de juego).
 - Añadido menú de Skin con 4 versiones distintas (para cambiar el estilo de las notas).
-- Añadido TextBox indicando los controles para cambiar la velocidad de desplazamiento antes de comenzar la canción.
+- Añadido TextBox indicando los controles (F3 y F4) para cambiar la velocidad de desplazamiento antes de comenzar la canción.
 - Ajuste de fuente de la lista de canciones para mejorar la lectura y estética.
 - Ajuste a la dificultad de juicio de las notas.
 - Ajuste de tamaño de receptores.
