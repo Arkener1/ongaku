@@ -18,7 +18,7 @@ public class BeatScroller : MonoBehaviour
     [Header("Parametros Usuario")]
     public float bpm;
     public float Offset;
-    public float constantSpeed;
+    public int constantSpeed;
     //public float BeatsAdelantados;
 
     [Header("Parametros Estaticos Cancion")]
@@ -41,9 +41,11 @@ public class BeatScroller : MonoBehaviour
     public AudioSource audioSource;
     [HideInInspector] public List<GameObject> SnapList;
 
-    //public Transform pivote1, pivote2;
+    private void Awake()
+    {
+        constantSpeed = PlayerPrefs.GetInt("ScrollSpeed");
+    }
 
-    // Start is called before the first frame update
     void Start()
     {
         GameObject obj1;
@@ -65,6 +67,22 @@ public class BeatScroller : MonoBehaviour
         {
             map.NotasInstanciadas[j].transform.position = new Vector3(map.NotasInstanciadas[j].transform.position.x, map.NotasInstanciadas[j].transform.position.y + Offset, 0f);
         }
+
+        
+        float posicionSnapReasignar;
+        float posicionNotaReasignar;
+        for (int i = 0; i < SnapList.Count; i++)
+        {
+            posicionSnapReasignar = (SnapList[i].transform.position.y * constantSpeed);
+            SnapList[i].transform.position = new Vector3(0, posicionSnapReasignar, 0);
+        }
+        for (int i = 0; i < map.NotasInstanciadas.Count; i++)
+        {
+            posicionNotaReasignar = (map.NotasInstanciadas[i].transform.position.y * constantSpeed);
+            map.NotasInstanciadas[i].transform.position = new Vector3(map.NotasInstanciadas[i].transform.position.x, posicionNotaReasignar, 0);
+        }
+        SnapDistanceFuturo = Mathf.Abs(SnapList[0].transform.position.y - SnapList[1].transform.position.y);
+        SnapDistance = (SnapDistance * constantSpeed);
     }
 
     // Update is called once per frame
@@ -102,8 +120,8 @@ public class BeatScroller : MonoBehaviour
         {
             float posicionSnapReasignar;
             float posicionNotaReasignar;
-            constantSpeed = Mathf.Clamp(constantSpeed - 1, 1, 20000);
-            if (constantSpeed > 1)
+            constantSpeed = Mathf.Clamp(constantSpeed - 1, 0, 20000);
+            if (constantSpeed >= 1)
             {
                 for (int i = 0; i < SnapList.Count; i++)
                 {
@@ -117,6 +135,10 @@ public class BeatScroller : MonoBehaviour
                 }
                 SnapDistanceFuturo = Mathf.Abs(SnapList[0].transform.position.y - SnapList[1].transform.position.y);
                 SnapDistance = (SnapDistance * constantSpeed) / (constantSpeed + 1);
+            }
+            else
+            {
+                constantSpeed = Mathf.Clamp(constantSpeed + 1, 1, 20000);
             }
             
         }

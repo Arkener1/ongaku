@@ -64,6 +64,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CapturePercent.cs" />
     <Compile Include="Assets\ChangeKeys.cs" />
     <Compile Include="Assets\ClassicSRIA\Scripts\CAbstractViewsHolder.cs" />
     <Compile Include="Assets\ClassicSRIA\Scripts\ClassicSRIA.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\buttonOnClick.cs" />
     <Compile Include="Assets\changeButton.cs" />
+    <Compile Include="Assets\showFPS.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />

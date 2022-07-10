@@ -18,55 +18,5 @@ public class NoteObject : MonoBehaviour
     void Update()
     {
         tempo += Time.deltaTime;
-       /* 
-        if (Input.GetKeyDown(keyToPress))
-        {
-
-            if (Mathf.Abs(transform.position.y) > 0.30 && Mathf.Abs(transform.position.y) <= 0.80)
-            {
-                GameManager.instance.NormalHit();
-                Instantiate(hitEffect, hitEffect.transform.position, Quaternion.identity);
-                gameObject.SetActive(false);
-                Instantiate(pressedEffect, transform.position, Quaternion.identity);
-            }
-
-            else if (Mathf.Abs(transform.position.y) > 0.18 && Mathf.Abs(transform.position.y) <= 0.30)
-            {
-                GameManager.instance.GoodHit();
-                Instantiate(goodEffect, goodEffect.transform.position, Quaternion.identity);
-                gameObject.SetActive(false);
-                Instantiate(pressedEffect, transform.position, Quaternion.identity);
-            }
-
-            else if (Mathf.Abs(transform.position.y) <= 0.18)
-            {
-                GameManager.instance.PerfectHit();
-                Instantiate(perfectEffect, perfectEffect.transform.position, Quaternion.identity);
-                gameObject.SetActive(false);
-                Instantiate(pressedEffect, transform.position, Quaternion.identity);
-            }
-
-        }
-*/
-        
     }
-
-    /*private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == "Activator")
-        {
-            canBePressed = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.tag == "Activator" && gameObject.activeSelf)
-        {
-            canBePressed = false;
-
-            GameManager.instance.NoteMissed();
-            Instantiate(missEffect, missEffect.transform.position, Quaternion.identity);
-        }
-    }*/
 }

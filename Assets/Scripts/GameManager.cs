@@ -16,17 +16,19 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
-    public int currentScore;
-    public int scorePerNote = 2000;
-    public int scorePerGoodNote = 2500;
-    public int scorePerPerfectNote = 3000;
+    public double currentScore;
+    public double scorePerNote;
+    public double scorePerGoodNote;
+    public double scorePerPerfectNote;
 
-    public int currentMultiplier;
-    public int multiplierTracker;
-    public int[] multiplierThresholds;
+    private double unidadScore;
+
+    //public int currentMultiplier;
+    //public int multiplierTracker;
+    //public int[] multiplierThresholds;
 
     public Text scoreText;
-    public Text multiText;
+    public Text accText;
     public GameObject f3f4;
 
     public GameObject[] keys;
@@ -35,11 +37,14 @@ public class GameManager : MonoBehaviour
 
     private KeyCode[] keysDetect = new KeyCode[4];
 
-    public float totalNotes;
-    public float NormalHits;
-    public float GoodHits;
-    public float PerfectHits;
-    public float MissedHits;
+    public double totalNotes;
+    public float NormalHits = 0;
+    public float GoodHits = 0;
+    public float PerfectHits = 0;
+    public float MissedHits = 0;
+
+    public float percentHit = 0;
+    public float totalHits;
 
     public int SkinId;
 
@@ -66,7 +71,7 @@ public class GameManager : MonoBehaviour
         keys[3].GetComponent<SpriteRenderer>().sprite = p3[SkinId];
         keys[1].GetComponent<SpriteRenderer>().sprite = p4[SkinId];
 
-        
+       
     }
 
     // Start is called before the first frame update
@@ -77,18 +82,31 @@ public class GameManager : MonoBehaviour
         keysDetect[2] = buttons[2].GetComponent<ButtonController>().keyToPress;
         keysDetect[3] = buttons[3].GetComponent<ButtonController>().keyToPress;
         instance = this;
-        currentMultiplier = 1;
-        totalNotes = ((FindObjectsOfType<NoteObject>().Length));
+        //currentMultiplier = 1;
+        totalNotes = FindObjectsOfType<NoteObject>().Length;
+
+        unidadScore = (100000f / totalNotes);
+
+        scorePerPerfectNote = unidadScore;
+        scorePerGoodNote = (unidadScore * 0.80f);
+        scorePerNote = (unidadScore * 0.50f);
+
+        Debug.Log(mapa.NotasInstanciadas1.Count);
+        Debug.Log(mapa.NotasInstanciadas2.Count);
+        Debug.Log(mapa.NotasInstanciadas3.Count);
+        Debug.Log(mapa.NotasInstanciadas4.Count);
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (!startPlaying)
         {
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 scoreText.text = "0";
+                accText.gameObject.SetActive(true);
                 scoreText.alignment = TextAnchor.MiddleRight;
                 scoreText.rectTransform.anchoredPosition = new Vector2(652f, 496f);
                 scoreText.fontSize = 60;
@@ -101,6 +119,10 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            totalHits = NormalHits + GoodHits + PerfectHits + MissedHits;
+
+            percentHit =(NormalHits * 0.50f + GoodHits * 0.80f + PerfectHits * 1f) / (totalHits) * 100;
+
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 theMusic.Stop();
@@ -116,10 +138,10 @@ public class GameManager : MonoBehaviour
                 perfectsText.text = "" + PerfectHits;
                 missesText.text = "" + MissedHits;
 
-                float totalHits = NormalHits + GoodHits + PerfectHits;
-                float percentHit = (totalHits / totalNotes) * 100f;
+                PlayerPrefs.SetInt("ScrollSpeed", theBS.constantSpeed);
 
-                percentHitText.text = percentHit.ToString("F1") + "%";
+
+                percentHitText.text = percentHit.ToString("F2") + "%";
 
                 string rankVal = "F";
 
@@ -143,188 +165,225 @@ public class GameManager : MonoBehaviour
                     rankVal = "A";
                 }
 
-                else if (percentHit >= 95)
+                else if (percentHit >= 95 && percentHit < 100)
                 {
                     rankVal = "S";
                 }
+
+                else if (percentHit >= 100)
+                {
+                    rankVal = "SS";
+                }
                 rankText.text = rankVal;
-                finalScoreText.text = currentScore.ToString();
+                finalScoreText.text = currentScore.ToString("F0");
             }
-
-            if (Input.GetKeyDown(keysDetect[0]))
+            else
             {
-                
-
-                if (Mathf.Abs(mapa.NotasInstanciadas1[indiceNota1].transform.position.y) <= 0.9f)
+                if (indiceNota1 < mapa.NotasInstanciadas1.Count)
                 {
-                    instance.PerfectHit();
-                    perfectEffect.SetActive(true);
-                    mapa.NotasInstanciadas1[indiceNota1].SetActive(false);
-                    //Instantiate(pressedEffect, transform.position, Quaternion.identity);
-                    indiceNota1++;
+                    if (Input.GetKeyDown(keysDetect[0]) && indiceNota1 < mapa.NotasInstanciadas1.Count)
+                    {
+                        if (Mathf.Abs(mapa.NotasInstanciadas1[indiceNota1].transform.position.y) <= 0.9f)
+                        {
+                            instance.PerfectHit();
+                            perfectEffect.SetActive(true);
+                            mapa.NotasInstanciadas1[indiceNota1].SetActive(false);
+                            //Instantiate(pressedEffect, transform.position, Quaternion.identity);
+                            if (indiceNota1 < mapa.NotasInstanciadas1.Count)
+                            {
+                                indiceNota1++;
+                            }
+                        }
+
+                        else if (Mathf.Abs(mapa.NotasInstanciadas1[indiceNota1].transform.position.y) <= 1.3f)
+                        {
+                            instance.GoodHit();
+                            goodEffect.SetActive(true);
+                            mapa.NotasInstanciadas1[indiceNota1].SetActive(false);
+                            //Instantiate(pressedEffect, transform.position, Quaternion.identity);
+                            if (indiceNota1 < mapa.NotasInstanciadas1.Count)
+                            {
+                                indiceNota1++;
+                            }
+                        }
+
+                        else if (Mathf.Abs(mapa.NotasInstanciadas1[indiceNota1].transform.position.y) <= 1.7f)
+                        {
+                            instance.NormalHit();
+                            hitEffect.SetActive(true);
+                            mapa.NotasInstanciadas1[indiceNota1].SetActive(false);
+                            //Instantiate(pressedEffect, transform.position, Quaternion.identity);
+                            if (indiceNota1 < mapa.NotasInstanciadas1.Count)
+                            {
+                                indiceNota1++;
+                            }
+                        }
+                    }
+
+                    if (mapa.NotasInstanciadas1[indiceNota1].transform.position.y < -1.70f && indiceNota1 < mapa.NotasInstanciadas1.Count)
+                    {
+                        instance.NoteMissed();
+                        missEffect.SetActive(true);
+                        indiceNota1++;
+                    }
                 }
 
-                else if (Mathf.Abs(mapa.NotasInstanciadas1[indiceNota1].transform.position.y) <= 1.3f)
+                if (indiceNota2 < mapa.NotasInstanciadas2.Count)
                 {
-                    instance.GoodHit();
-                    goodEffect.SetActive(true);
-                    mapa.NotasInstanciadas1[indiceNota1].SetActive(false);
-                    //Instantiate(pressedEffect, transform.position, Quaternion.identity);
-                    indiceNota1++;
+                    if (Input.GetKeyDown(keysDetect[1]) && indiceNota2 < mapa.NotasInstanciadas2.Count)
+                    {
+                        if (Mathf.Abs(mapa.NotasInstanciadas2[indiceNota2].transform.position.y) <= 0.9f)
+                        {
+                            instance.PerfectHit();
+                            perfectEffect.SetActive(true);
+                            mapa.NotasInstanciadas2[indiceNota2].SetActive(false);
+                            //Instantiate(pressedEffect, transform.position, Quaternion.identity);
+                            if (indiceNota2 < mapa.NotasInstanciadas2.Count)
+                            {
+                                indiceNota2++;
+                            }
+                        }
+
+                        else if (Mathf.Abs(mapa.NotasInstanciadas2[indiceNota2].transform.position.y) <= 1.3f)
+                        {
+                            instance.GoodHit();
+                            goodEffect.SetActive(true);
+                            mapa.NotasInstanciadas2[indiceNota2].SetActive(false);
+                            //Instantiate(pressedEffect, transform.position, Quaternion.identity);
+                            if (indiceNota2 < mapa.NotasInstanciadas2.Count)
+                            {
+                                indiceNota2++;
+                            }
+                        }
+
+                        if (Mathf.Abs(mapa.NotasInstanciadas2[indiceNota2].transform.position.y) <= 1.7f)
+                        {
+                            instance.NormalHit();
+                            hitEffect.SetActive(true);
+                            mapa.NotasInstanciadas2[indiceNota2].SetActive(false);
+                            //Instantiate(pressedEffect, transform.position, Quaternion.identity);
+                            if (indiceNota2 < mapa.NotasInstanciadas2.Count)
+                            {
+                                indiceNota2++;
+                            }
+                        }
+                    }
+
+                    if (mapa.NotasInstanciadas2[indiceNota2].transform.position.y < -1.70f && indiceNota2 < mapa.NotasInstanciadas2.Count)
+                    {
+                        instance.NoteMissed();
+                        missEffect.SetActive(true);
+                        indiceNota2++;
+                    }
                 }
 
-                else if (Mathf.Abs(mapa.NotasInstanciadas1[indiceNota1].transform.position.y) <= 1.7f)
+                if (indiceNota3 < mapa.NotasInstanciadas3.Count)
                 {
-                    instance.NormalHit();
-                    hitEffect.SetActive(true);
-                    mapa.NotasInstanciadas1[indiceNota1].SetActive(false);
-                    //Instantiate(pressedEffect, transform.position, Quaternion.identity);
-                    indiceNota1++;
+                    if (Input.GetKeyDown(keysDetect[2]) && indiceNota3 < mapa.NotasInstanciadas3.Count)
+                    {
+                        if (Mathf.Abs(mapa.NotasInstanciadas3[indiceNota3].transform.position.y) <= 0.9f)
+                        {
+                            instance.PerfectHit();
+                            perfectEffect.SetActive(true);
+                            mapa.NotasInstanciadas3[indiceNota3].SetActive(false);
+                            //Instantiate(pressedEffect, transform.position, Quaternion.identity);
+                            if (indiceNota3 < mapa.NotasInstanciadas3.Count)
+                            {
+                                indiceNota3++;
+                            }
+                        }
+
+                        else if (Mathf.Abs(mapa.NotasInstanciadas3[indiceNota3].transform.position.y) <= 1.3f)
+                        {
+                            instance.GoodHit();
+                            goodEffect.SetActive(true);
+                            mapa.NotasInstanciadas3[indiceNota3].SetActive(false);
+                            //Instantiate(pressedEffect, transform.position, Quaternion.identity);
+                            if (indiceNota3 < mapa.NotasInstanciadas3.Count)
+                            {
+                                indiceNota3++;
+                            }
+                        }
+
+                        if (Mathf.Abs(mapa.NotasInstanciadas3[indiceNota3].transform.position.y) <= 1.7f)
+                        {
+                            instance.NormalHit();
+                            hitEffect.SetActive(true);
+                            mapa.NotasInstanciadas3[indiceNota3].SetActive(false);
+                            //Instantiate(pressedEffect, transform.position, Quaternion.identity);
+                            if (indiceNota3 < mapa.NotasInstanciadas3.Count)
+                            {
+                                indiceNota3++;
+                            }
+                        }
+                    }
+
+                    if (mapa.NotasInstanciadas3[indiceNota3].transform.position.y < -1.70f && indiceNota3 < mapa.NotasInstanciadas3.Count)
+                    {
+                        instance.NoteMissed();
+                        missEffect.SetActive(true);
+                        indiceNota3++;
+                    }
                 }
 
-            }
-
-            if (Input.GetKeyDown(keysDetect[1]))
-            {
-                
-
-                if (Mathf.Abs(mapa.NotasInstanciadas2[indiceNota2].transform.position.y) <= 0.9f)
+                if (indiceNota4 < mapa.NotasInstanciadas4.Count)
                 {
-                    instance.PerfectHit();
-                    perfectEffect.SetActive(true);
-                    mapa.NotasInstanciadas2[indiceNota2].SetActive(false);
-                    //Instantiate(pressedEffect, transform.position, Quaternion.identity);
-                    indiceNota2++;
+                    if (Input.GetKeyDown(keysDetect[3]) && indiceNota4 < mapa.NotasInstanciadas4.Count)
+                    {
+                        if (Mathf.Abs(mapa.NotasInstanciadas4[indiceNota4].transform.position.y) <= 0.9)
+                        {
+                            instance.PerfectHit();
+                            perfectEffect.SetActive(true);
+                            mapa.NotasInstanciadas4[indiceNota4].SetActive(false);
+                            //Instantiate(pressedEffect, transform.position, Quaternion.identity);
+                            if (indiceNota4 < mapa.NotasInstanciadas4.Count)
+                            {
+                                indiceNota4++;
+                            }
+                        }
+
+                        else if (Mathf.Abs(mapa.NotasInstanciadas4[indiceNota4].transform.position.y) <= 1.3f)
+                        {
+                            instance.GoodHit();
+                            goodEffect.SetActive(true);
+                            mapa.NotasInstanciadas4[indiceNota4].SetActive(false);
+                            //Instantiate(pressedEffect, transform.position, Quaternion.identity);
+                            if (indiceNota4 < mapa.NotasInstanciadas4.Count)
+                            {
+                                indiceNota4++;
+                            }
+                        }
+
+                        else if (Mathf.Abs(mapa.NotasInstanciadas4[indiceNota4].transform.position.y) <= 1.7)
+                        {
+                            instance.NormalHit();
+                            hitEffect.SetActive(true);
+                            mapa.NotasInstanciadas4[indiceNota4].SetActive(false);
+                            //Instantiate(pressedEffect, transform.position, Quaternion.identity);
+                            if (indiceNota4 < mapa.NotasInstanciadas4.Count)
+                            {
+                                indiceNota4++;
+                            }
+                        }
+                    }
+
+                    if (mapa.NotasInstanciadas4[indiceNota4].transform.position.y < -1.70f && indiceNota4 < mapa.NotasInstanciadas4.Count)
+                    {
+                        instance.NoteMissed();
+                        missEffect.SetActive(true);
+                        indiceNota4++;
+                    }
                 }
-
-                else if (Mathf.Abs(mapa.NotasInstanciadas2[indiceNota2].transform.position.y) <= 1.3f)
-                {
-                    instance.GoodHit();
-                    goodEffect.SetActive(true);
-                    mapa.NotasInstanciadas2[indiceNota2].SetActive(false);
-                    //Instantiate(pressedEffect, transform.position, Quaternion.identity);
-                    indiceNota2++;
-                }
-
-                if (Mathf.Abs(mapa.NotasInstanciadas2[indiceNota2].transform.position.y) <= 1.7f)
-                {
-                    instance.NormalHit();
-                    hitEffect.SetActive(true);
-                    mapa.NotasInstanciadas2[indiceNota2].SetActive(false);
-                    //Instantiate(pressedEffect, transform.position, Quaternion.identity);
-                    indiceNota2++;
-                }
-
-            }
-
-            if (Input.GetKeyDown(keysDetect[2]))
-            {
-                if (Mathf.Abs(mapa.NotasInstanciadas3[indiceNota3].transform.position.y) <= 0.9f)
-                {
-                    instance.PerfectHit();
-                    perfectEffect.SetActive(true);
-                    mapa.NotasInstanciadas3[indiceNota3].SetActive(false);
-                    //Instantiate(pressedEffect, transform.position, Quaternion.identity);
-                    indiceNota3++;
-                }
-
-                else if (Mathf.Abs(mapa.NotasInstanciadas3[indiceNota3].transform.position.y) <= 1.3f)
-                {
-                    instance.GoodHit();
-                    goodEffect.SetActive(true);
-                    mapa.NotasInstanciadas3[indiceNota3].SetActive(false);
-                    //Instantiate(pressedEffect, transform.position, Quaternion.identity);
-                    indiceNota3++;
-                }
-
-                if (Mathf.Abs(mapa.NotasInstanciadas3[indiceNota3].transform.position.y) <= 1.7f)
-                {
-                    instance.NormalHit();
-                    hitEffect.SetActive(true);
-                    mapa.NotasInstanciadas3[indiceNota3].SetActive(false);
-                    //Instantiate(pressedEffect, transform.position, Quaternion.identity);
-                    indiceNota3++;
-                }
-            }
-
-            if (Input.GetKeyDown(keysDetect[3]))
-            {
-                if (Mathf.Abs(mapa.NotasInstanciadas4[indiceNota4].transform.position.y) <= 0.9)
-                {
-                    instance.PerfectHit();
-                    perfectEffect.SetActive(true);
-                    mapa.NotasInstanciadas4[indiceNota4].SetActive(false);
-                    //Instantiate(pressedEffect, transform.position, Quaternion.identity);
-                    indiceNota4++;
-                }
-
-                else if (Mathf.Abs(mapa.NotasInstanciadas4[indiceNota4].transform.position.y) <= 1.3f)
-                {
-                    instance.GoodHit();
-                    goodEffect.SetActive(true);
-                    mapa.NotasInstanciadas4[indiceNota4].SetActive(false);
-                    //Instantiate(pressedEffect, transform.position, Quaternion.identity);
-                    indiceNota4++;
-                }
-
-                else if (Mathf.Abs(mapa.NotasInstanciadas4[indiceNota4].transform.position.y) <= 1.7)
-                {
-                    instance.NormalHit();
-                    hitEffect.SetActive(true);
-                    mapa.NotasInstanciadas4[indiceNota4].SetActive(false);
-                    //Instantiate(pressedEffect, transform.position, Quaternion.identity);
-                    indiceNota4++;
-                }
-            }
-
-            if (mapa.NotasInstanciadas1[indiceNota1].transform.position.y < -1.70f)
-            {
-                instance.NoteMissed();
-                missEffect.SetActive(true);
-                indiceNota1++;
-            }
-
-            if (mapa.NotasInstanciadas2[indiceNota2].transform.position.y < -1.70f)
-            {
-                instance.NoteMissed();
-                missEffect.SetActive(true);
-                indiceNota2++;
-            }
-
-            if (mapa.NotasInstanciadas3[indiceNota3].transform.position.y < -1.70f)
-            {
-                instance.NoteMissed();
-                missEffect.SetActive(true);
-                indiceNota3++;
-            }
-
-            if (mapa.NotasInstanciadas4[indiceNota4].transform.position.y < -1.70f)
-            {
-                instance.NoteMissed();
-                missEffect.SetActive(true);
-                indiceNota4++;
             }
         }
     }
 
     public void NoteHit()
     {
-        //beatSfx.Play();
-        multiplierTracker++;
-        if ((currentMultiplier - 1) < multiplierThresholds.Length) 
-        {
-            multiplierTracker++;
-
-            if (multiplierThresholds[currentMultiplier - 1] <= multiplierTracker)
-            {
-                multiplierTracker = 0;
-                currentMultiplier++;
-            }
-        }
-
-        scoreText.text = "" + currentScore;
-        //multiText.text = "Score x" + currentMultiplier;  
+        scoreText.text = "" + currentScore.ToString("F0");
     }
+
+
 
     public void NormalHit()
     {
@@ -333,7 +392,7 @@ public class GameManager : MonoBehaviour
         perfectEffect.SetActive(false);
         goodEffect.SetActive(false);
         missEffect.SetActive(false);
-        currentScore += scorePerNote * currentMultiplier;
+        currentScore += scorePerNote;
         NormalHits++;
         NoteHit();
     }
@@ -345,7 +404,7 @@ public class GameManager : MonoBehaviour
         hitEffect.SetActive(false);
         perfectEffect.SetActive(false);
         missEffect.SetActive(false);
-        currentScore += scorePerGoodNote * currentMultiplier;
+        currentScore += scorePerGoodNote;
         GoodHits++;
         NoteHit();
     }
@@ -357,7 +416,8 @@ public class GameManager : MonoBehaviour
         hitEffect.SetActive(false);
         goodEffect.SetActive(false);
         missEffect.SetActive(false);
-        currentScore += scorePerPerfectNote * currentMultiplier;
+        Debug.Log(scorePerPerfectNote);
+        currentScore += scorePerPerfectNote;
         PerfectHits++;
         NoteHit();
     }
@@ -366,8 +426,8 @@ public class GameManager : MonoBehaviour
     {
         UnityEngine.Debug.Log("missed");
         MissedHits++;
-        currentMultiplier = 1;
-        multiplierTracker = 0;
+        //currentMultiplier = 1;
+        //multiplierTracker = 0;
         //multiText.text = "Score x" + currentMultiplier;
 
     }

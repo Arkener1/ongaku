@@ -476,16 +476,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e284853c89fffd840a46842db04a4f8c, type: 3}
   - {fileID: 21300000, guid: 922f642ee4909964a83e3bcc8b6b7506, type: 3}
   - {fileID: 21300000, guid: ccfc134c7a11d6846a7fecd912b0ddde, type: 3}
-  preview3:
-  - {fileID: 21300000, guid: fb93d07a033e0bc4b9a0861e1d6abbef, type: 3}
-  - {fileID: 21300000, guid: 2d9240febe84cb44ab99a13d5eecf3d0, type: 3}
-  - {fileID: 21300000, guid: 433fee0892e730e40991c7b3a92a25bc, type: 3}
-  - {fileID: 21300000, guid: e3d73ad5ab55b534083b536875b62d2c, type: 3}
-  preview4:
-  - {fileID: 21300000, guid: 7aa0b4d1e0904504f8cd3315ff443209, type: 3}
-  - {fileID: 21300000, guid: 857e57e03a171654299f2efa3cb4a9d1, type: 3}
-  - {fileID: 21300000, guid: 419b35f700c117e4d99e026642db0c99, type: 3}
-  - {fileID: 21300000, guid: b5a48062d33815848b3d0ed96788185b, type: 3}
 --- !u!224 &926932929
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1016,7 +1006,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1313072599}
         m_MethodName: backButton
         m_Mode: 1
         m_Arguments:
@@ -1981,7 +1971,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22462396, guid: 63405eb125224354297a03db24f266a3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 3.8120422
+      value: 3.8120117
       objectReference: {fileID: 0}
     - target: {fileID: 22462396, guid: 63405eb125224354297a03db24f266a3, type: 3}
       propertyPath: m_AnchoredPosition.y

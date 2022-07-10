@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7498869630302450337}
   - component: {fileID: 7498869630302450342}
   - component: {fileID: 7498869630302450340}
-  - component: {fileID: 1165726096694939020}
   m_Layer: 12
   m_Name: yellow beat
   m_TagString: Activator
@@ -108,29 +107,3 @@ MonoBehaviour:
   pressedEffect: {fileID: 5165062277099243424, guid: d5b52296adefc174f9641491e957f6ca,
     type: 3}
   tempo: 0
---- !u!61 &1165726096694939020
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7498869630302450336}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.512, y: 0.512}
-    newSize: {x: 2.5, y: 0.87}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.001, y: 0.24857143}
-  m_EdgeRadius: 0
