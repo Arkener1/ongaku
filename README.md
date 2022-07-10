@@ -18,7 +18,8 @@ V B N M: Controles de los receptores de las 4 columnas de juego por defecto (en 
 - Añadido un contador de FPS para poder hacerle seguimiento al rendimiento.
 - Se ha optimizado y pulido el sistema de gameplay para evitar latencia adicional que existía en la V1.2.
 - Se han corregido bugs de menor impacto dentro del juego.
-- ~~Se han añadido aún más bugs para seguir desarrollando el juego.~~
+- ~~Se han añadido aún más bugs para seguir desarrollando el juego.~~  
+
 **V1.2**  
 - Añadida la opción de salir directamente de la canción con la tecla Esc.
 - Añadido menú de Keybinds (para cambiar las teclas de juego).
